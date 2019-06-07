@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
-export const drawDiv = () => {
-    d3.select('body')
+export const drawDiv = (selector) => {
+    d3.select(selector)
         .append('div')
-        .classed('dummy-div');
+        .classed('dummy-div', true);
 };
