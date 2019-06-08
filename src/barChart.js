@@ -31,7 +31,7 @@ function bar() {
     let xAxis;
     let yAxis;
 
-    // Dispatcher object to broadcast the 'customHover' event
+    // Dispatcher object to broadcast the 'customMouseOver' event
     const dispatcher = d3.dispatch('customMouseOver');
 
     // extractors
