@@ -18,9 +18,6 @@ function bar() {
     let xAxis;
     let yAxis;
 
-    // Dispatcher object to broadcast the 'customMouseOver' event
-    const dispatcher = d3.dispatch('customMouseOver');
-
     // extractors
     const getFrequency = ({frequency}) => frequency;
     const getLetter = ({letter}) => letter;
@@ -118,55 +115,13 @@ function bar() {
             .attr('x', ({letter}) => xScale(letter))
             .attr('y', ({frequency}) => yScale(frequency))
             .attr('width', xScale.bandwidth())
-            .attr('height', ({frequency}) => chartHeight - yScale(frequency))
-            .on('mouseover', function(d) {
-                dispatcher.call('customMouseOver', this, d);
-            });
+            .attr('height', ({frequency}) => chartHeight - yScale(frequency));
 
         // Exit
         bars.exit()
             .style('opacity', 0)
             .remove();
     }
-
-    // API
-    exports.height = function(_x) {
-        if (!arguments.length) {
-            return height;
-        }
-        height = _x;
-
-        return this;
-    };
-
-    exports.margin = function(_x) {
-        if (!arguments.length) {
-            return margin;
-        }
-        margin = {
-            ...margin,
-            ..._x
-        };
-
-        return this;
-    };
-
-    exports.on = function() {
-        let value = dispatcher.on.apply(dispatcher, arguments);
-
-        return value === dispatcher ? exports : value;
-    };
-
-    exports.width = function(_x) {
-        if (!arguments.length) {
-            return width;
-        }
-        width = _x;
-
-        return this;
-    };
-
-    return exports;
 };
 
 export default bar;
