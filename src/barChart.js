@@ -18,8 +18,8 @@ function bar() {
     let xAxis;
     let yAxis;
 
-    // Dispatcher object to broadcast the 'customMouseOver' event
-    const dispatcher = d3.dispatch('customMouseOver');
+    // Dispatcher object to broadcast the mouse events
+    const dispatcher = d3.dispatch('customMouseOver', 'customMouseMove', 'customMouseOut', 'customMouseClick');
 
     // extractors
     const getFrequency = ({frequency}) => frequency;
@@ -121,6 +121,15 @@ function bar() {
             .attr('height', ({frequency}) => chartHeight - yScale(frequency))
             .on('mouseover', function(d) {
                 dispatcher.call('customMouseOver', this, d);
+            })
+            .on('mousemove', function(d) {
+                dispatcher.call('customMouseMove', this, d);
+            })
+            .on('mouseout', function(d) {
+                dispatcher.call('customMouseOut', this, d);
+            })
+            .on('click', function(d) {
+                dispatcher.call('customMouseClick', this, d);
             });
 
         // Exit

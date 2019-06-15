@@ -290,6 +290,93 @@ describe('Bar Chart', () => {
                 expect(actual).toEqual(expected);
             });
         });
+
+        describe('when moving over a bar', () => {
+
+            it('should trigger a callback once on mouse over', () => {
+                const expected = 1;
+                const firstBar = container.selectAll('.bar:nth-child(1)');
+                const callbackSpy = jasmine.createSpy('callback');
+                let actual;
+
+                barChart.on('customMouseMove', callbackSpy);
+                firstBar.dispatch('mousemove');
+                actual = callbackSpy.calls.count();
+
+                expect(actual).toEqual(expected);
+            });
+
+            it('should trigger the callback with the data entry as argument', () => {
+                const expected = data[0];
+                const firstBar = container.selectAll('.bar:nth-child(1)');
+                const callbackSpy = jasmine.createSpy('callback');
+                let actual;
+
+                barChart.on('customMouseMove', callbackSpy);
+                firstBar.dispatch('mousemove');
+                actual = callbackSpy.calls.first().args[0];
+
+                expect(actual).toEqual(expected);
+            });
+        });
+
+        describe('when moving out of a bar', () => {
+
+            it('should trigger a callback once on mouse out', () => {
+                const expected = 1;
+                const firstBar = container.selectAll('.bar:nth-child(1)');
+                const callbackSpy = jasmine.createSpy('callback');
+                let actual;
+
+                barChart.on('customMouseOut', callbackSpy);
+                firstBar.dispatch('mouseout');
+                actual = callbackSpy.calls.count();
+
+                expect(actual).toEqual(expected);
+            });
+
+            it('should trigger the callback with the data entry as argument', () => {
+                const expected = data[0];
+                const firstBar = container.selectAll('.bar:nth-child(1)');
+                const callbackSpy = jasmine.createSpy('callback');
+                let actual;
+
+                barChart.on('customMouseOut', callbackSpy);
+                firstBar.dispatch('mouseout');
+                actual = callbackSpy.calls.first().args[0];
+
+                expect(actual).toEqual(expected);
+            });
+        });
+
+        describe('when clicking a bar', () => {
+
+            it('should trigger a callback once on mouse click', () => {
+                const expected = 1;
+                const firstBar = container.selectAll('.bar:nth-child(1)');
+                const callbackSpy = jasmine.createSpy('callback');
+                let actual;
+
+                barChart.on('customMouseClick', callbackSpy);
+                firstBar.dispatch('click');
+                actual = callbackSpy.calls.count();
+
+                expect(actual).toEqual(expected);
+            });
+
+            it('should trigger the callback with the data entry as argument', () => {
+                const expected = data[0];
+                const firstBar = container.selectAll('.bar:nth-child(1)');
+                const callbackSpy = jasmine.createSpy('callback');
+                let actual;
+
+                barChart.on('customMouseClick', callbackSpy);
+                firstBar.dispatch('click');
+                actual = callbackSpy.calls.first().args[0];
+
+                expect(actual).toEqual(expected);
+            });
+        });
     });
 
     describe('API', () => {
