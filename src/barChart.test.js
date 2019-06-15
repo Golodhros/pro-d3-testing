@@ -404,7 +404,19 @@ describe('Bar Chart', () => {
             expect(actual).toEqual(expected);
         });
 
+        it('should provide a event "on" getter and setter', () => {
+            const callback = () => {};
+            const expected = callback;
+            let actual;
+
+            barChart.on('customMouseClick', callback);
+            actual = barChart.on('customMouseClick');
+
+            expect(actual).toEqual(expected);
+        });
+
         describe('margin', () => {
+
             it('should provide margin getter and setter', () => {
                 const previous = barChart.margin();
                 const expected = {top: 4, right: 4, bottom: 4, left: 4};
@@ -428,7 +440,10 @@ describe('Bar Chart', () => {
                     };
                     let actual;
 
-                    barChart.margin(expected);
+                    barChart.margin({
+                        top: 10,
+                        right: 20
+                    });
                     actual = barChart.margin();
 
                     expect(previous).not.toEqual(actual);
